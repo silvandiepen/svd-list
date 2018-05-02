@@ -7,11 +7,12 @@ div
 	main.bg-white
 		<nuxt></nuxt>
 </template>
-<style>
+<style lang="scss">
+@import '~svd-style/ext';
+header{ padding: grid(1); }
 </style>
 
 <script>
-import headings from '~/static/head.json';
 // import Footer from 'svd-footer'
 
 
