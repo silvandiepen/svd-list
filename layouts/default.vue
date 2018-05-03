@@ -14,9 +14,6 @@ header{ padding: grid(1); }
 
 <script>
 // import Footer from 'svd-footer'
-
-
 export default{
-	head: headings
 }
 </script>
