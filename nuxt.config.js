@@ -25,10 +25,11 @@ module.exports = {
       src: "~/plugins/svd-vue-components"
     }
   ],
-  // modules: [
-  //   'nuxt-rfg-icon',
-  //   '@nuxtjs/manifest',
-  // ],
+  modules: [
+    'nuxt-rfg-icon',
+    '@nuxtjs/manifest',
+    '@nuxtjs/pwa'
+  ],
   /*
   ** Customize the progress bar color
   */
