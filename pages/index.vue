@@ -11,7 +11,7 @@
         </column>
       </row>
     </section>
-    <section class="add basic">
+    <section class="add">
       <row center>
         <column medium="two-third">
           <form>
@@ -23,8 +23,6 @@
           </div>
         </column>
       </row>
-    </section>
-    <section class="settings basic bg-offwhite">
     </section>
     <section class="disclaimer basic bg-black">
       <row center>
@@ -92,14 +90,24 @@ export default {
 
 
 <style lang="scss">
+$default-color-set: "vibrant";
 @import "~svd-style/ext";
 
+.add {
+  padding: 30px;
+  background-color: color(Dark);
+  @media #{$small-only} {
+    height: 110px;
+  }
+}
 .list {
+  height: calc(100vh - 110px - 80px);
+  overflow: auto;
   &__list {
   }
   &__item {
     padding: 1rem;
-    border: 1px solid color(Offwhite);
+    border: 1px solid color(Blue, 0.5);
     animation: popIn 0.5s forwards;
     & + .list__item {
       margin-top: 1rem;
@@ -134,6 +142,7 @@ export default {
   opacity: 1;
   transition: opacity 0.1s;
   position: absolute;
+  color: white;
   &.hide {
     opacity: 0;
   }
