@@ -1,11 +1,12 @@
 <template>
   <main>
-    <section class="list basic">
+    <section class="list basic" ref="list" :class="['list','basic',opened ? 'opened': '']">
       <row center>
         <column medium="two-third">
           <ul class="list__list" v-if="list.length > 0">
-            <li  class="list__item" v-for="item in list" :key="item.id">
+            <li  class="list__item" v-for="(item, index) in list.items" :key="item.id">
               {{item.text}}
+              <span v-on:click="list.splice(index, 1)" class="list__remove"><span></span></span>
             </li>
           </ul>
         </column>
@@ -15,7 +16,10 @@
       <row center>
         <column medium="two-third">
           <form>
-            <input type="text" ref="list_item" @keyup.enter.native="addItem()" />
+            
+            <input type="text" ref="list_item" @keyup.enter.native="addItem()"
+  @focus="opened = true"
+  @blur="opened = false" />
             <button @click.prevent="addItem()">Add</button>
           </form>
           <div class="error" ref="error" v-if="error">
@@ -40,7 +44,11 @@
 export default {
   data() {
     return {
-      list: [],
+      opened: false,
+      list: {
+        title: "My list",
+        items: []
+      },
       error: ""
     };
   },
@@ -56,8 +64,10 @@ export default {
         _this.showError(1);
       } else {
         let newItem = { id: _this.randomId(), text: value };
-        _this.list.push(newItem);
+        _this.list.items.push(newItem);
         _this.$refs.list_item.value = "";
+        _this.$refs.list.scrollTop = _this.$refs.list.scrollHeight + 100;
+        _this.$refs.list_item.focus();
       }
     },
     showError(errorID) {
@@ -101,16 +111,36 @@ $default-color-set: "vibrant";
   }
 }
 .list {
-  height: calc(100vh - 110px - 80px);
+  max-height: calc(100vh - 110px - 80px);
   overflow: auto;
+  @media #{$small-only} {
+    height: calc(100vh - 110px - 80px);
+  }
   &__list {
   }
   &__item {
     padding: 1rem;
+    position: relative;
     border: 1px solid color(Blue, 0.5);
     animation: popIn 0.5s forwards;
     & + .list__item {
       margin-top: 1rem;
+    }
+  }
+  &__remove {
+    position: absolute;
+    top: 50%;
+    right: 1.5rem;
+    transform: translate(50%, -50%);
+    border: 1px solid red;
+    width: 1.5rem;
+    height: 1.5rem;
+    span {
+      color: color(Red);
+      font-size: 1rem;
+      text-align: center;
+      line-height: 1.5rem;
+      content: "\2326";
     }
   }
 }
